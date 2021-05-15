@@ -4,6 +4,9 @@ import vector.*;
 
 public class App 
 {
+    // tested how the functions worked in main
+    // this program is better off as a library actually
+    // but nevermind, I needed the quickly test it so here's the main function
     public static void main( String[] args )
     {
         PointCharge q1 = new PointCharge(0.0, 0.3, 2.0e-6);
@@ -26,15 +29,21 @@ class PointCharge {
         this.q = new Charge(q);
     }
 
+    // whether two charges repel or attract each other
     public Interaction interaction(PointCharge other) {
         return this.q.interaction(other.q);
     }
 
+    // for calculating the magnitude of the forces 
+    // that the charges apply to each other
     private static double coulombs_law(double q1, double q2, double d) {
         double k = 8.99e9;
         return k * q1 * q2 / Math.pow(d, 2);
     }
 
+    // calculates the force applied by the charge to another charge
+    // uses Coulomb's law for magnitude calculation
+    // and Vector.angle() for angle calculation
     public Vector force(PointCharge other) {
         double delta_x = other.c.x - this.c.x;
         double delta_y = other.c.y - this.c.y;
@@ -50,6 +59,8 @@ class PointCharge {
         }
     }
 
+    // calculates the net force on a charge 
+    // by adding the forces applied by the other charges
     public Vector net_force(PointCharge[] others) {
         Vector f_net = new Vector(0.0, 0.0);
         for (int i = 0; i < others.length; i++) {
@@ -58,6 +69,7 @@ class PointCharge {
         return f_net;
     }
 }
+
 class Coordinates {
     double x;
     double y;
@@ -91,6 +103,8 @@ class Charge {
     }
 }
 
+// booleans could've been used instead of these
+// but for the sake of being more verbose I just used these
 enum ChargeType {
     Positive,
     Negative,
